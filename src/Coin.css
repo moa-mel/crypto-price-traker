@@ -64,3 +64,37 @@
   .green {
     color: #11d811;
   }
+
+  @media (max-width: 768px) {
+    .coin-container{
+      width: 100%;
+
+    }
+    .coin-row{
+      width: 100%;
+      flex-wrap:wrap;
+    }
+   /* .coin-percent{
+      display:none;
+    } */
+    .coin-marketcap{
+      display:none;
+    }
+    .coin-volume{
+      display:none;
+    }
+    .coin-data{
+      display: block;
+    
+    &:before {
+      content: attr(coin-price)": ";
+    }
+  }
+   /* .coin-data coin-price {
+      display:none;
+    } */
+    .coin h1{
+      display:none;
+    }
+   
+  }
