@@ -68,6 +68,12 @@ form {
 @media (max-width: 768px) {
   .coin-input{
     width: 100%;
+    height: 38px;
   }
-  
+  .coin-header{
+    gap: 20px;
+  }
+  .user-picture{
+    height: 39px;
+  }
 }
