@@ -10,6 +10,7 @@ const App = () => {
   const [search, setSearch] = useState('')
   const googlebuttonref = useRef();
   const [user, setuser] = useState(false);
+
   const onGoogleSignIn = (user) => {
     let userCred = user.credential;
     let payload = jwt_deocde(userCred);
@@ -28,6 +29,34 @@ const App = () => {
       size: "medium",
     });
   });
+
+  /* if (isAndroid && isEmbeddedBrowser) {
+  alert("Please open this link in your default browser for a better experience.");
+}  */
+
+  useEffect(() => {
+    const userAgent = window.navigator.userAgent;
+    const url = window.location.href;
+  
+    // Detect iOS embedded browsers (LinkedIn, Instagram, Snapchat)
+    const isIOS = userAgent.includes('Mobile') && (userAgent.includes('iPhone') || userAgent.includes('iPad'));
+    const isAndroid = userAgent.includes('Android');
+
+    const isEmbeddedBrowser =
+      userAgent.includes('LinkedInApp') ||
+      userAgent.includes('Instagram') ||
+      userAgent.includes('Snapchat');
+  
+      if (isEmbeddedBrowser) {
+        if (isIOS) {
+          // Redirect to Safari for iOS
+          window.location.href = 'x-safari-' + url;
+        } else if (isAndroid) {
+          // Redirect to Chrome for Android
+          window.location.href = `intent://${url.replace(/^https?:\/\//, '')}#Intent;scheme=https;package=com.android.chrome;end`;
+        }
+      }
+    }, []);
 
   useEffect(() => {
      axios.get('https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=20&page=1&sparkline=false')
