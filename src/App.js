@@ -30,9 +30,7 @@ const App = () => {
     });
   });
 
-  /* if (isAndroid && isEmbeddedBrowser) {
-  alert("Please open this link in your default browser for a better experience.");
-}  */
+
 
   // useEffect(() => {
   //   const userAgent = window.navigator.userAgent;
@@ -54,6 +52,7 @@ const App = () => {
   //       } else if (isAndroid) {
   //         // Redirect to Chrome for Android
   //         window.location.href = `intent://${url.replace(/^https?:\/\//, '')}#Intent;scheme=https;package=com.android.chrome;end`;
+  //           //window.location.href = `intent://${url.replace(/^https?:\/\//, '')}#Intent;scheme=https;end`;
   //       }
   //     }
   //   }, []);
@@ -62,25 +61,15 @@ const App = () => {
     const userAgent = window.navigator.userAgent;
     const url = window.location.href;
   
-    // Detect embedded browsers on iOS and Android
+    // Detect iOS embedded browsers (LinkedIn, Instagram, Snapchat)
     const isIOS = /iPhone|iPad|iPod/i.test(userAgent);
     const isAndroid = /Android/i.test(userAgent);
-  
     const isEmbeddedBrowser = /LinkedInApp|Instagram|Snapchat/i.test(userAgent);
   
     if (isEmbeddedBrowser) {
-      const message = `
-        Semis will like to open in your default web browser to continue.
-      `;
-  
-      if (window.confirm(message)) {
-        if (isIOS) {
-          // Redirect to Safari for iOS
-          window.location.href = 'x-safari-' + url;
-        } else if (isAndroid) {
-          // Redirect to Chrome for Android
-          window.location.href = `intent://${url.replace(/^https?:\/\//, '')}#Intent;scheme=https;package=com.android.chrome;end`;
-        }
+      if (isIOS || isAndroid) {
+        // Redirect to default browser
+        window.location.href = url; // Redirects to the same URL in the default browser
       }
     }
   }, []);
