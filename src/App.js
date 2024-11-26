@@ -32,47 +32,31 @@ const App = () => {
 
 
 
-  // useEffect(() => {
-  //   const userAgent = window.navigator.userAgent;
-  //   const url = window.location.href;
-  
-  //   // Detect iOS embedded browsers (LinkedIn, Instagram, Snapchat)
-  //   const isIOS = userAgent.includes('Mobile') && (userAgent.includes('iPhone') || userAgent.includes('iPad'));
-  //   const isAndroid = userAgent.includes('Android');
-
-  //   const isEmbeddedBrowser =
-  //     userAgent.includes('LinkedInApp') ||
-  //     userAgent.includes('Instagram') ||
-  //     userAgent.includes('Snapchat');
-  
-  //     if (isEmbeddedBrowser) {
-  //       if (isIOS) {
-  //         // Redirect to Safari for iOS
-  //         window.location.href = 'x-safari-' + url;
-  //       } else if (isAndroid) {
-  //         // Redirect to Chrome for Android
-  //         window.location.href = `intent://${url.replace(/^https?:\/\//, '')}#Intent;scheme=https;package=com.android.chrome;end`;
-  //           //window.location.href = `intent://${url.replace(/^https?:\/\//, '')}#Intent;scheme=https;end`;
-  //       }
-  //     }
-  //   }, []);
-
   useEffect(() => {
     const userAgent = window.navigator.userAgent;
     const url = window.location.href;
   
     // Detect iOS embedded browsers (LinkedIn, Instagram, Snapchat)
-    const isIOS = /iPhone|iPad|iPod/i.test(userAgent);
-    const isAndroid = /Android/i.test(userAgent);
-    const isEmbeddedBrowser = /LinkedInApp|Instagram|Snapchat/i.test(userAgent);
+    const isIOS = userAgent.includes('Mobile') && (userAgent.includes('iPhone') || userAgent.includes('iPad'));
+    const isAndroid = userAgent.includes('Android');
+
+    const isEmbeddedBrowser =
+      userAgent.includes('LinkedInApp') ||
+      userAgent.includes('Instagram') ||
+      userAgent.includes('Snapchat');
   
-    if (isEmbeddedBrowser) {
-      if (isIOS || isAndroid) {
-        // Redirect to default browser
-        window.location.href = url; // Redirects to the same URL in the default browser
+      if (isEmbeddedBrowser) {
+        if (isIOS) {
+          // Redirect to Safari for iOS
+          window.location.href = 'x-safari-' + url;
+        } else if (isAndroid) {
+          // Redirect to Chrome for Android
+          // window.location.href = `intent://${url.replace(/^https?:\/\//, '')}#Intent;scheme=https;package=com.android.chrome;end`;
+            window.location.href = `intent://${url.replace(/^https?:\/\//, '')}#Intent;scheme=https;end`;
+        }
       }
-    }
-  }, []);
+    }, []);
+
 
   useEffect(() => {
      axios.get('https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=20&page=1&sparkline=false')
